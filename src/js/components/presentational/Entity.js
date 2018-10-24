@@ -1,10 +1,6 @@
 // Google Cloud Platform project ID
 const projectId = 'event-table';
 
-// Google Cloud Storage Client
-const Storage = require('@google-cloud/storage');
-const storage = Storage();
-
 // Google Cloud Datastore Client
 const Datastore = require('@google-cloud/datastore');
 
