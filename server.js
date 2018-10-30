@@ -1,16 +1,12 @@
 const format = require('util').format;
 const express = require('express');
+const Multer = require('multer');
+const helmet = require('helmet');
 const path = require('path');
 const bodyParser = require('body-parser');
 
 // Google Cloud Platform project ID
-const projectId = 'cloudfunctionscloudstorage';
-
-// Google Cloud Storage Client
-const Storage = require('@google-cloud/storage');
-const storage = Storage();
-// Select Storage Bucket
-const bucket = storage.bucket('eventpub-bucket');
+const projectId = 'event-table';
 
 // Google Cloud Datastore Client
 const Datastore = require('@google-cloud/datastore');
@@ -23,6 +19,14 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '')));
+
+
+const multer = Multer({
+    storage: Multer.memoryStorage(),
+    limits: {
+        fileSize: 5 * 1024 * 1024 // no larger than 5mb, you can change as needed.
+    }
+});
 
 
 // Google Cloud Storage POST request handler
@@ -51,8 +55,44 @@ app.post('/uploadHandler', multer.single('file'), (req, res, next) => {
     blobStream.end(req.file.buffer);
 });
 
-// Google Cloud Storage List Bucket Files
+app.get('/listEvents', function (req, res) {
+    const query = datastore.createQuery('Event').order('created');
 
+    datastore
+        .runQuery(query)
+        .then(results => {
+            const events = results[0];
+
+            console.log('Events:');
+            events.forEach(event => {
+                const eventKey = event[datastore.KEY];
+                console.log(eventKey.id, event);
+            });
+        })
+        .catch(err => {
+            console.error('ERROR:', err);
+        });
+
+    res.send('data list')
+});
+
+app.post('/delete', function (req, res) {
+        const taskKey = datastore.key(['Event', req]);
+
+        datastore
+            .delete(taskKey)
+            .then(() => {
+                console.log(`Task ${req} deleted successfully.`);
+            })
+            .catch(err => {
+                console.error('ERROR:', err);
+            });
+
+    res.send('Event deleted')
+});
+
+// Google Cloud Storage List Bucket Files
+/*
 app.get('/listBucketItems', (req, res) => {
     bucketName = 'eventpub-bucket';
 
@@ -70,10 +110,10 @@ app.get('/listBucketItems', (req, res) => {
         .catch(err => {
             console.error('ERROR:', err);
         });
-})
+});
 
 // Google Cloud Datastore GET request handler
-
+/*
 app.get('/sendStore', (req, res) => {
     // The kind for the new entity
     const kind = 'Event-Item';
@@ -101,10 +141,18 @@ app.get('/sendStore', (req, res) => {
         .catch(err => {
             console.error('ERROR:', err);
         });
-})
+})*/
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}`);
     console.log('Press Ctrl+C to quit.');
 });
+
+export function listEvents(){
+
+}
+
+export function deleteEvent(){
+
+}
