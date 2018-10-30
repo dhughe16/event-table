@@ -1,15 +1,18 @@
 {
   "name": "pack",
   "version": "1.0.0",
-  "description": "",
+  "description": "Cloud-based event publisher",
+  "repository": "https://github.com/dhughe16/event-table.git",
   "main": "events.js",
   "scripts": {
     "dev": "webpack-dev-server --open --mode development && node server.js",
     "start": "webpack --mode production && node server.js",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "bundle": "./node_modules/.bin/webpack --config webpack.config.js",
+    "prestart": "npm run bundle"
   },
   "keywords": [],
-  "author": "",
+  "author": "dhughe16",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.1.2",
@@ -20,25 +23,37 @@
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "prop-types": "^15.6.2",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
-    "webpack": "^4.22.0",
     "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.10"
+    "webpack-dev-server": "^3.1.10",
+    "css-loader": "^1.0.0"
   },
   "dependencies": {
     "@google-cloud/datastore": "^2.0.0",
+    "@google-cloud/storage": "^1.5.1",
     "@material-ui/core": "^3.3.1",
+    "@types/markerclustererplus": "^2.1.33",
+    "ajv": "^6.5.4",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
-    "css-loader": "^1.0.0",
     "express": "^4.16.4",
     "format": "^0.2.2",
+    "fs-extra": "^0.30.0",
     "helmet": "^3.14.0",
     "multer": "^1.4.1",
     "path": "^0.12.7",
     "postcss-loader": "^3.0.0",
+    "progress-stream": "^2.0.0",
+    "react": "^16.6.0",
+    "react-collapsible": "^2.3.1",
+    "react-day-picker": "^7.2.4",
+    "react-dom": "^16.6.0",
+    "react-dropzone-component": "^3.0.0",
+    "react-google-maps": "^9.4.5",
+    "react-json-viewer": "^1.7.1",
+    "recompose": "^0.30.0",
     "sinon": "^7.0.0",
-    "style-loader": "^0.23.1"
+    "style-loader": "^0.23.1",
+    "util": "^0.10.3",
+    "webpack": "^4.23.1"
   }
 }
