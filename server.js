@@ -56,7 +56,8 @@ app.post('/uploadHandler', multer.single('file'), (req, res, next) => {
 });
 
 app.get('/listEvents', function (req, res) {
-    const query = datastore.createQuery('Event').order('created');
+    const query = datastore.createQuery('Event').limit(10);
+    eventList = [];
 
     datastore
         .runQuery(query)
@@ -67,13 +68,13 @@ app.get('/listEvents', function (req, res) {
             events.forEach(event => {
                 const eventKey = event[datastore.KEY];
                 console.log(eventKey.id, event);
+                eventList.push(event);
             });
+            res.send(eventList);
         })
         .catch(err => {
             console.error('ERROR:', err);
         });
-
-    res.send('data list')
 });
 
 app.post('/delete', function (req, res) {
