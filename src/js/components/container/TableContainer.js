@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
+import DeleteIcon from "@material-ui/icons/Delete";
 
 class TableContainer extends Component {
     constructor() {
@@ -32,9 +33,6 @@ class TableContainer extends Component {
     }
 
     render() {
-        const { title }  = "sample";
-        const { date } = "sample";
-        const { location } = "sample";
         return (
             <Paper>
                 <Table id={"event-table"}>
@@ -43,10 +41,14 @@ class TableContainer extends Component {
                         <TableCell>Event Title</TableCell>
                         <TableCell location>Location</TableCell>
                         <TableCell date>Date</TableCell>
+                        <TableCell ></TableCell>
                     </TableRow>
                 </TableHead>
                     <TableBody>
-                        { this.state.events.map(event => <Row date={event.Date} location={location} title = {event.Title}/>)}
+                        { this.state.events.map(event =>
+                            <Row date={event.Date}
+                                 location={event.Location}
+                                 title = {event.Title}/>)}
                     </TableBody>
                 </Table>
             </Paper>
