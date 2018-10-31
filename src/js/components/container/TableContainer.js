@@ -7,52 +7,24 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-//import getEvents from '../../../../';
+import axios from 'axios';
 
 class TableContainer extends Component {
     constructor() {
         super();
         this.state = {
-            title: "sample",
-            date: "sample",
-            location: "sample"
+            events: []
         };
-        this.handleChange = this.handleChange.bind(this);
     }
 
-    handleChange(event) {
-        this.setState({[event.target.id]: event.target.value});
-    }
-
-    // Trying to list events this way, but I don't know if it'll
-    // work
-    listEvents() {
-        const datastore = new Datastore({});
-        const query = datastore.createQuery('Event').order('created');
-
-        datastore
-            .runQuery(query)
-            .then(results => {
-                const tasks = results[0];
-
-                console.log('Events:');
-                tasks.forEach(task => {
-                    const taskKey = task[datastore.KEY];
-                    console.log(taskKey.id, task);
-                });
-            })
-            .catch(err => {
-                console.error('ERROR:', err);
-            });
-    }
-
-    deleteTask(taskId) {
-        const taskKey = datastore.key(['Task', taskId]);
-
-        datastore
-            .delete(taskKey)
-            .then(() => {
-                console.log(`Task ${taskId} deleted successfully.`);
+    componentDidMount() {
+        axios({
+            method: 'get',
+            url: '/listEvents',
+            timeout: 5000 })
+            .then(res => {
+                const events = res.data;
+                this.setState({ events });
             })
             .catch(err => {
                 console.error('ERROR:', err);
@@ -60,9 +32,9 @@ class TableContainer extends Component {
     }
 
     render() {
-        const { title } = this.state;
-        const { date } = this.state;
-        const { location } = this.state;
+        const { title }  = "sample";
+        const { date } = "sample";
+        const { location } = "sample";
         return (
             <Paper>
                 <Table id={"event-table"}>
@@ -74,7 +46,7 @@ class TableContainer extends Component {
                     </TableRow>
                 </TableHead>
                     <TableBody>
-                        <Row date={title} location={location} title={title}/>
+                        { this.state.events.map(event => <Row date={event.Date} location={location} title = {event.Title}/>)}
                     </TableBody>
                 </Table>
             </Paper>

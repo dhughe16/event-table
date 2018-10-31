@@ -4,6 +4,11 @@ const Multer = require('multer');
 const helmet = require('helmet');
 const path = require('path');
 const bodyParser = require('body-parser');
+var reactDOM = require('react-dom/server');
+var react = require('react');
+require('@babel/register')({
+    presets: ['react']
+});
 
 // Google Cloud Platform project ID
 const projectId = 'event-table';
@@ -64,10 +69,7 @@ app.get('/listEvents', function (req, res) {
         .then(results => {
             const events = results[0];
 
-            console.log('Events:');
             events.forEach(event => {
-                const eventKey = event[datastore.KEY];
-                console.log(eventKey.id, event);
                 eventList.push(event);
             });
             res.send(eventList);
