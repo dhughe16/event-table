@@ -70,8 +70,14 @@ app.get('/listEvents', function (req, res) {
             const events = results[0];
 
             events.forEach(event => {
-                eventList.push(event);
+                eventList.push({
+                    Title: event.Title,
+                    Location: event.Location,
+                    Date: event.Date,
+                    Key: event[datastore.KEY].path[1]
+                });
             });
+            //console.log(eventList);
             res.send(eventList);
         })
         .catch(err => {
@@ -80,7 +86,8 @@ app.get('/listEvents', function (req, res) {
 });
 
 app.post('/delete', function (req, res) {
-        const taskKey = datastore.key(['Event', req]);
+    console.log(req.data.key);
+    const taskKey = datastore.key(['Event', req.data.key]);
 
         datastore
             .delete(taskKey)

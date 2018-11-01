@@ -4,14 +4,16 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import deleteEvent from '../container/deleteEvent'
+import axios from "axios";
 
-const Row = ({ title, location, date }) => (
+const Row = ({ title, location, date, key }) => (
         <TableRow id={"table-row"}>
             <TableCell>{title}</TableCell>
             <TableCell>{JSON.stringify(location)}</TableCell>
             <TableCell>{date}</TableCell>
             <TableCell >
-                <IconButton><DeleteIcon/></IconButton>
+                <IconButton onClick={deleteEvent(key)}><DeleteIcon/></IconButton>
             </TableCell>
         </TableRow>
 );
@@ -19,7 +21,8 @@ const Row = ({ title, location, date }) => (
 Row.propTypes = {
     title: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired
+    date: PropTypes.string.isRequired,
+    key: PropTypes.object.isRequired
 };
 
 export default Row;

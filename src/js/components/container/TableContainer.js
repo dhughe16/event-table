@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
 import DeleteIcon from "@material-ui/icons/Delete";
+import IconButton from "@material-ui/core/IconButton/IconButton";
 
 class TableContainer extends Component {
     constructor() {
@@ -45,10 +46,9 @@ class TableContainer extends Component {
                     </TableRow>
                 </TableHead>
                     <TableBody>
-                        { this.state.events.map(event =>
-                            <Row date={event.Date}
-                                 location={event.Location}
-                                 title = {event.Title}/>)}
+                    {this.state.events.map(event => (
+                          <Row title={event.Title} date={event.Date} location={event.Location} key={event.Key}/>
+                    ))}
                     </TableBody>
                 </Table>
             </Paper>

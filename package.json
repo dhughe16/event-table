@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/register": "^7.0.0",
     "@google-cloud/datastore": "^2.0.0",
     "@google-cloud/storage": "^1.5.1",
