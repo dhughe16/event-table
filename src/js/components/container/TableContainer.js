@@ -33,6 +33,29 @@ class TableContainer extends Component {
             });
     }
 
+    deleteEvent(e, key) {
+
+        axios.post({
+            method: 'post',
+            url: '/delete',
+            data: {
+                key: key
+            }
+        })
+            .then(res => {
+                console.log(res.data);
+            })
+            .catch(err => {
+                console.error('ERROR:', err);
+            });
+    }
+
+    testMessage(e)
+    {
+        console.log("Button confirmed");
+    }
+
+
     render() {
         return (
             <Paper>
