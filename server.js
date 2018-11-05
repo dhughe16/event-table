@@ -4,8 +4,7 @@ const Multer = require('multer');
 const helmet = require('helmet');
 const path = require('path');
 const bodyParser = require('body-parser');
-var reactDOM = require('react-dom/server');
-var react = require('react');
+const axios = require('axios');
 require('@babel/register')({
     presets: ['react']
 });
@@ -61,19 +60,25 @@ app.post('/uploadHandler', multer.single('file'), (req, res, next) => {
 });
 
 app.get('/listEvents', function (req, res) {
-    const query = datastore.createQuery('Event').limit(10);
+    const query = datastore.createQuery('Event').limit(10).order('Date', {
+        descending: true,
+    });
     eventList = [];
 
     datastore
         .runQuery(query)
         .then(results => {
             const events = results[0];
-
             events.forEach(event => {
+
+                const date = new Date(event.Date);
+
+                const addr = reverseGeo(event.Location.latitude,event.Location.longitude);
+                console.log(addr);
                 eventList.push({
                     Title: event.Title,
-                    Location: event.Location,
-                    Date: event.Date,
+                    Location: addr,
+                    Date: date.toLocaleDateString("en-US"),
                     Key: event[datastore.KEY].path[1]
                 });
             });
@@ -92,7 +97,7 @@ app.post('/delete', function (req, res) {
         datastore
             .delete(taskKey)
             .then(() => {
-                console.log(`Task ${req} deleted successfully.`);
+                console.log(`Event ${req} deleted successfully.`);
             })
             .catch(err => {
                 console.error('ERROR:', err);
@@ -102,7 +107,7 @@ app.post('/delete', function (req, res) {
 });
 
 // Google Cloud Storage List Bucket Files
-/*
+
 app.get('/listBucketItems', (req, res) => {
     bucketName = 'eventpub-bucket';
 
@@ -123,7 +128,7 @@ app.get('/listBucketItems', (req, res) => {
 });
 
 // Google Cloud Datastore GET request handler
-/*
+
 app.get('/sendStore', (req, res) => {
     // The kind for the new entity
     const kind = 'Event-Item';
@@ -151,9 +156,28 @@ app.get('/sendStore', (req, res) => {
         .catch(err => {
             console.error('ERROR:', err);
         });
-})*/
+})
 
-const PORT = process.env.PORT || 8080;
+function reverseGeo(lat,lng) {
+    let latlng = lat.toString() + ',' + lng.toString();
+    let key = 'AIzaSyC4xYqoJ2z76xP1hEu8B4AG9otpRL7mxec';
+    var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latlng + '&key=' + key;
+    var addr = '';
+    axios({
+        method: 'get',
+        url: url,
+        timeout: 5000 })
+        .then(res => {
+            console.log(res.data.results[0].formatted_address);
+            addr = res.data.results[0].formatted_address;
+            return addr;
+        })
+        .catch(err => {
+            console.error('ERROR:', err);
+        });
+}
+
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}`);
     console.log('Press Ctrl+C to quit.');

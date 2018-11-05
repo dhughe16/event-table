@@ -33,6 +33,12 @@ class TableContainer extends Component {
             });
     }
 
+    allEvents() {
+        this.state.events.map( event =>
+            event.Location.latitude, event.Location.longitude
+    )
+    }
+
     deleteEvent(e, key) {
 
         axios.post({
@@ -55,6 +61,24 @@ class TableContainer extends Component {
         console.log("Button confirmed");
     }
 
+    reverseGeo(lat,lng) {
+        let latlng = lat.toString() + ',' + lng.toString();
+        let key = 'AIzaSyC4xYqoJ2z76xP1hEu8B4AG9otpRL7mxec';
+        var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latlng + '&key=' + key;
+        var addr = '';
+        axios({
+            method: 'get',
+            url: url,
+            timeout: 5000 })
+            .then(res => {
+                console.log(res.data.results[0].formatted_address);
+                addr = res.data.results[0].formatted_address;
+                return addr;
+            })
+            .catch(err => {
+                console.error('ERROR:', err);
+            });
+    }
 
     render() {
         return (

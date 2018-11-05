@@ -10,7 +10,7 @@ import axios from "axios";
 const Row = ({ title, location, date, key }) => (
         <TableRow id={"table-row"}>
             <TableCell>{title}</TableCell>
-            <TableCell>{JSON.stringify(location)}</TableCell>
+            <TableCell>{location}</TableCell>
             <TableCell>{date}</TableCell>
             <TableCell >
                 <IconButton onClick={deleteEvent(key)}><DeleteIcon/></IconButton>
