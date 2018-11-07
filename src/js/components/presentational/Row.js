@@ -1,7 +1,7 @@
 /*
 * Name: Darcy Hughes
 * Group: CSE 486 Capstone GoDaddy
-* File: Row.js
+* File: RowContainer.js
 * Desc: This file contains all the elements to build a single Row
 *       component.
  */
@@ -12,7 +12,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-import deleteEvent from '../container/deleteEvent'
+import deleteEvent from '../container/deleteEvent';
 
 const Row = ({ title, location, date, key }) => (
         <TableRow id={"table-row"}>
@@ -20,7 +20,7 @@ const Row = ({ title, location, date, key }) => (
             <TableCell>{JSON.stringify(location)}</TableCell>
             <TableCell>{date}</TableCell>
             <TableCell >
-                <IconButton onClick={deleteEvent(key)}><DeleteIcon/></IconButton>
+                <IconButton onClick={()=>{deleteEvent(key)}}><DeleteIcon/></IconButton>
             </TableCell>
         </TableRow>
 );

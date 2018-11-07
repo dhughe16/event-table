@@ -53,7 +53,7 @@ app.get('/listEvents', function (req, res) {
                     Title: event.Title,
                     Location: event.Location,
                     Date: date.toLocaleDateString("en-US"),
-                    Key: event[datastore.KEY].path[1]
+                    Id: event[datastore.KEY].path[1]
                 });
             });
             //let list = eventsToAddr(eventList);
@@ -73,13 +73,12 @@ app.get('/listEvents', function (req, res) {
  *  Desc: Deletes an event from Google Datastore
  */
 app.post('/delete', function (req, res) {
-    console.log(req.data.key);
-    const taskKey = datastore.key(['Event', req.data.key]);
+    const eventKey = datastore.key(['Event', req.body.key]);
 
         datastore
-            .delete(taskKey)
+            .delete(eventKey)
             .then(() => {
-                console.log(`Event ${req} deleted successfully.`);
+                console.log(`Event deleted successfully.`);
             })
             .catch(err => {
                 console.error('ERROR:', err);

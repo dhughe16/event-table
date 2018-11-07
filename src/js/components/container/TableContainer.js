@@ -14,6 +14,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Button from '@material-ui/core/Button';
+import RowContainer from './RowContainer';
 import axios from 'axios';
 
 class TableContainer extends Component {
@@ -40,17 +42,11 @@ class TableContainer extends Component {
     }
 
     // Deletes an event with the given key
-    deleteEvent(e, key) {
-
-        axios.post({
-            method: 'post',
-            url: '/delete',
-            data: {
-                key: key
-            }
-        })
+    deleteEvent(id) {
+        axios.post('/delete', {id})
             .then(res => {
                 console.log(res.data);
+                this.componentDidMount();
             })
             .catch(err => {
                 console.error('ERROR:', err);
@@ -71,7 +67,7 @@ class TableContainer extends Component {
                         <TableCell>Event Title</TableCell>
                         <TableCell location>Location</TableCell>
                         <TableCell date>Date</TableCell>
-                        <TableCell ></TableCell>
+                        <TableCell ><Button onClick={()=>{this.deleteEvent('5631986051842048')}}>Test</Button></TableCell>
                     </TableRow>
                 </TableHead>
                     <TableBody>
@@ -79,7 +75,7 @@ class TableContainer extends Component {
                           <Row title={event.Title}
                                date={event.Date}
                                location={event.Location}
-                               key={event.Key}/>
+                               key={event.Id}/>
                     ))}
                     </TableBody>
                 </Table>
