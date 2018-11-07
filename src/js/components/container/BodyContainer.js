@@ -18,6 +18,10 @@ class BodyContainer extends Component {
         super();
     }
 
+    handleClick(){
+        window.location = "http://cloudfunctionscloudstorage.appspot.com/";
+    }
+
     render() {
         return (
             <div>
@@ -25,7 +29,7 @@ class BodyContainer extends Component {
                  <Bar/>
                 <TableContainer/>
             </Paper>
-                <Button variant="fab" color="secondary" aria-label="Add">
+                <Button variant="fab" color="secondary" aria-label="Add" onClick={this.handleClick}>
                     <AddIcon />
                 </Button>
             </div>

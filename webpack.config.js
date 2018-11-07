@@ -1,6 +1,4 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
-const sinon = require('sinon');
-const Datastore = require('@google-cloud/datastore');
 
 module.exports = {
     module: {
