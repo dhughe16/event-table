@@ -18,8 +18,9 @@ class BodyContainer extends Component {
         super();
     }
 
-    handleClick(){
-        window.location = "http://cloudfunctionscloudstorage.appspot.com/";
+    handleClick(e){
+        const window = window.open('http://cloudfunctionscloudstorage.appspot.com/', '_blank');
+        window.focus();
     }
 
     render() {
@@ -29,7 +30,7 @@ class BodyContainer extends Component {
                  <Bar/>
                 <TableContainer/>
             </Paper>
-                <Button variant="fab" color="secondary" aria-label="Add" onClick={this.handleClick}>
+                <Button variant="fab" color="secondary" aria-label="Add" onClick={this.handleClick.bind(this)}>
                     <AddIcon />
                 </Button>
             </div>

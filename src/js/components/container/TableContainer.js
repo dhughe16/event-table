@@ -8,15 +8,15 @@
 
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import Row from "../presentational/Row";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
-import RowContainer from './RowContainer';
 import axios from 'axios';
+import IconButton from "@material-ui/core/IconButton/IconButton";
+import DeleteIcon from '@material-ui/icons/Delete';
 
 class TableContainer extends Component {
     constructor() {
@@ -51,6 +51,7 @@ class TableContainer extends Component {
             .catch(err => {
                 console.error('ERROR:', err);
             });
+        this.componentDidMount();
     }
 
     // Test
@@ -67,15 +68,19 @@ class TableContainer extends Component {
                         <TableCell>Event Title</TableCell>
                         <TableCell location>Location</TableCell>
                         <TableCell date>Date</TableCell>
-                        <TableCell ><Button onClick={()=>{this.deleteEvent('5631986051842048')}}>Test</Button></TableCell>
+                        <TableCell ></TableCell>
                     </TableRow>
                 </TableHead>
                     <TableBody>
                     {this.state.events.map(event => (
-                          <Row title={event.Title}
-                               date={event.Date}
-                               location={event.Location}
-                               key={event.Id}/>
+                        <TableRow id={event.Id}>
+                            <TableCell>{event.Title}</TableCell>
+                            <TableCell>{JSON.stringify(event.Location)}</TableCell>
+                            <TableCell>{event.Date}</TableCell>
+                            <TableCell >
+                                <IconButton onClick={()=>{this.deleteEvent(event.Id)}}><DeleteIcon/></IconButton>
+                            </TableCell>
+                        </TableRow>
                     ))}
                     </TableBody>
                 </Table>
