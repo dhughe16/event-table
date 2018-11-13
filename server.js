@@ -8,21 +8,28 @@
  */
 
 const format = require('util').format;
-const Multer = require('multer');
 const helmet = require('helmet');
+const Multer = require('multer');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const axios = require('axios');
 
-// Google Cloud Storage Client
-const Storage = require('@google-cloud/storage');
-const storage = Storage();
-// Select Storage Bucket
-const bucket = storage.bucket('eventpub-bucket');
+require('@babel/register')({
+    presets: ['react']
+});
 
 // Google Cloud Platform project ID
 const projectId = 'event-table';
+
+// Google Cloud Storage Client
+const {Storage} = require('@google-cloud/storage');
+const storage = new Storage({
+    projectId: projectId,
+});
+// Select Storage Bucket
+const bucket = storage.bucket('eventpub-bucket');
+
 
 // Google Cloud Datastore Client
 const Datastore = require('@google-cloud/datastore');
