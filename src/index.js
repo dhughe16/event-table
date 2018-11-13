@@ -5,5 +5,5 @@
 * Desc: This file imports elements to be used in the index.html file.
  */
 
-import BodyContainer from "./js/components/container/BodyContainer"
+import BodyContainer from "./js/components/BodyContainer"
 import "./styles/styles.css";
