@@ -18,7 +18,7 @@ const Map = compose(
     />
 )
 
-export class ReactMap extends React.Component {
+export class MapComponent extends React.Component {
 
     render() {
         return <Map />

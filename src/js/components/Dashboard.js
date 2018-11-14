@@ -1,8 +1,7 @@
 /*
 * Name: Darcy Hughes
 * Group: CSE 486 Capstone GoDaddy
-* File: BodyContainer.js
-* Desc: This file assembles all other components into a page to be displayed.
+* File: Dashboard* Desc: This file assembles all other components into a page to be displayed.
  */
 
 import React, { Component } from "react";
@@ -12,10 +11,10 @@ import TableContainer from './TableContainer';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import Bar from './Bar';
-import ReactMap from './Map';
+import ReactMap from './MapComponent';
 import DefaultUpload from './DefaultUpload';
 
-class BodyContainer extends Component {
+class Dashboard extends Component {
     constructor() {
         super();
     }
@@ -39,6 +38,6 @@ class BodyContainer extends Component {
         );
     }
 }
-export default BodyContainer;
+export default Dashboard;
 const wrapper = document.getElementById("create-body");
-wrapper ? ReactDOM.render(<BodyContainer />, wrapper) : false;
+wrapper ? ReactDOM.render(<Dashboard />, wrapper) : false;
