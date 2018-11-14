@@ -4,12 +4,13 @@ import {
     NavLink,
     HashRouter
 } from "react-router-dom";
-import Dashboard from "./Dashboard";
-import CreateEvent from "./CreateEvent";
-import UploadVideo from "./UploadVideo";
+import Dashboard from "./components/Dashboard";
+import CreateEvent from "./components/CreateEvent";
+import UploadVideo from "./components/UploadVideo";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import ReactDOM from "react-dom";
 
 const styles = {
     root: {
@@ -18,7 +19,7 @@ const styles = {
 };
 
 
-class Main extends Component {
+class Home extends Component {
     state = {
         value: 0,
     };
@@ -51,8 +52,10 @@ class Main extends Component {
     }
 }
 
-Main.propTypes = {
+Home.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Main);
+export default withStyles(styles)(Home);
+const wrapper = document.getElementById("create-home");
+wrapper ? ReactDOM.render(<Home />, wrapper) : false;

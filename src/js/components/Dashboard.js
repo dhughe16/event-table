@@ -11,8 +11,6 @@ import TableContainer from './TableContainer';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import Bar from './Bar';
-import ReactMap from './MapComponent';
-import DefaultUpload from './DefaultUpload';
 
 class Dashboard extends Component {
     constructor() {

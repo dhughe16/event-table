@@ -4,16 +4,16 @@ import ReactDOM from 'react-dom';
 import Collapsible from 'react-collapsible';
 
 import DayPicker from 'react-day-picker';
-import 'react-day-picker/lib/style.css';
+//import 'react-day-picker/lib/style.css';
 
 import { MapComponent } from './MapComponent';
 
 import axios from 'axios';
 
-const localstorage_key = 'savedJson'
+const localstorage_key = 'savedJson';
 
 
-class App extends Component {
+class CreateEvent extends Component {
     constructor() {
         super();
         this.state = {
@@ -26,7 +26,7 @@ class App extends Component {
             <div className="App">
                 <h1 id="App-header">Event Publish</h1>
                 <div id="App-window">
-                    <EventForm></EventForm>
+                    <EventForm/>
                 </div>
             </div>
         );
@@ -179,4 +179,4 @@ class EventForm extends React.Component {
     }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+export default CreateEvent;

@@ -5,5 +5,5 @@
 * Desc: This file imports elements to be used in the index.html file.
  */
 
-import Dashboard from "./js/components/Dashboard"
+import Dashboard from "./js/Home"
 import "./styles/styles.css";
