@@ -21,7 +21,7 @@ class UploadVideo extends Component {
                 <div className="post-sign-in">
                     <div>
                         <img id="channel-thumbnail"/>
-                            <span id="channel-name"></span>
+                            <span id="channel-name"/>
                     </div>
                     <div>
                         <label htmlFor="title">Title:</label>
@@ -44,15 +44,15 @@ class UploadVideo extends Component {
                         <input type="file" id="file" className="button" accept="video/*"/>
                             <button id="button">Upload Video</button>
                             <div className="during-upload">
-                                <p><span id="percent-transferred"></span>% done (<span
-                                    id="bytes-transferred"></span>/<span id="total-bytes"></span> bytes)</p>
-                                <progress id="upload-progress" max="1" value="0"></progress>
+                                <p><span id="percent-transferred"/>% done (<span
+                                    id="bytes-transferred"/>/<span id="total-bytes"/> bytes)</p>
+                                <progress id="upload-progress" max="1" value="0"/>
                             </div>
 
                             <div className="post-upload">
-                                <p>Uploaded video with id <span id="video-id"></span>. Polling for status...</p>
-                                <ul id="post-upload-status"></ul>
-                                <div id="player"></div>
+                                <p>Uploaded video with id <span id="video-id"/>. Polling for status...</p>
+                                <ul id="post-upload-status"/>
+                                <div id="player"/>
                             </div>
                             <p id="disclaimer">By uploading a video, you certify that you own all rights to the content
                                 or that you are authorized by the owner to make the content publicly available on

@@ -1,8 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import DropzoneComponent from 'react-dropzone-component';
+//import ReactDOM from 'react-dom';
+import {DropzoneComponent} from 'react-dropzone-component';
 
-export default class DefaultUpload extends React.Component {
+class DefaultUpload extends React.Component {
     constructor(props) {
         super(props);
 
@@ -45,8 +45,10 @@ export default class DefaultUpload extends React.Component {
             success: this.success,
             removedfile: this.removedfile,
             uploadprogress: this.progress
-        }
+        };
 
         return <DropzoneComponent config={config} eventHandlers={eventHandlers} djsConfig={djsConfig} />
     }
 }
+
+export default DefaultUpload;

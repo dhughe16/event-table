@@ -8,18 +8,11 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import Paper from '@material-ui/core/Paper';
 import TableContainer from './TableContainer';
-import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add';
 import Bar from './Bar';
 
 class Dashboard extends Component {
-    constructor() {
-        super();
-    }
-
-    handleClick(e){
-        const window = window.open('http://cloudfunctionscloudstorage.appspot.com/', '_blank');
-        window.focus();
+    constructor(props) {
+        super(props);
     }
 
     render() {
@@ -29,9 +22,6 @@ class Dashboard extends Component {
                  <Bar/>
                 <TableContainer/>
             </Paper>
-                <Button variant="fab" color="secondary" aria-label="Add" onClick={this.handleClick.bind(this)}>
-                    <AddIcon />
-                </Button>
             </div>
         );
     }

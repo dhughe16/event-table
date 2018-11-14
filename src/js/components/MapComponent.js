@@ -16,7 +16,7 @@ const Map = compose(
         defaultZoom={10}
         defaultCenter={{ lat: 33.4255, lng: -111.94 }}
     />
-)
+);
 
 export class MapComponent extends React.Component {
 

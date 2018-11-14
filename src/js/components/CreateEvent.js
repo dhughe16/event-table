@@ -1,21 +1,16 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
-
+//import ReactDOM from 'react-dom';
 import Collapsible from 'react-collapsible';
-
 import DayPicker from 'react-day-picker';
 //import 'react-day-picker/lib/style.css';
-
 import { MapComponent } from './MapComponent';
-
-import axios from 'axios';
-
-const localstorage_key = 'savedJson';
+//import axios from 'axios';
+//const localstorage_key = 'savedJson';
 
 
 class CreateEvent extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             userJson: {},
         }
@@ -90,7 +85,7 @@ class EventForm extends React.Component {
                     <br />
                     <label>
                         Description:
-                        <textarea type="text" rows="5" value={this.state.desc} onChange={this.handleInputChange} />
+                        <textarea rows="5" value={this.state.desc} onChange={this.handleInputChange} />
                     </label>
                     <br />
                     <label>
