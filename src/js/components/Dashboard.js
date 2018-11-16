@@ -8,7 +8,6 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import Paper from '@material-ui/core/Paper';
 import TableContainer from './TableContainer';
-import Bar from './Bar';
 
 class Dashboard extends Component {
     constructor(props) {
@@ -19,7 +18,6 @@ class Dashboard extends Component {
         return (
             <div>
             <Paper>
-                 <Bar/>
                 <TableContainer/>
             </Paper>
             </div>

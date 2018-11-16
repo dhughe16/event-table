@@ -4,31 +4,12 @@ import Collapsible from 'react-collapsible';
 import DayPicker from 'react-day-picker';
 //import 'react-day-picker/lib/style.css';
 import { MapComponent } from './MapComponent';
+import Paper from '@material-ui/core/Paper';
 //import axios from 'axios';
 //const localstorage_key = 'savedJson';
 
 
-class CreateEvent extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            userJson: {},
-        }
-    };
-
-    render() {
-        return (
-            <div className="App">
-                <h1 id="App-header">Event Publish</h1>
-                <div id="App-window">
-                    <EventForm/>
-                </div>
-            </div>
-        );
-    };
-}
-
-class EventForm extends React.Component {
+class CreateEvent extends React.Component {
     constructor(props) {
         super(props);
 
@@ -45,6 +26,7 @@ class EventForm extends React.Component {
             selectedDay: null,
             time: "12:00",
             YouTubeURL: "https://www.youtube.com/watch?v=oHg5SJYRHA0",
+            userJson: {},
         };
     }
 
@@ -74,8 +56,8 @@ class EventForm extends React.Component {
 
     render() {
         return (
+            <Paper>
             <form>
-                <h2>Event Form</h2>
                 <div id="name-desc">
                     <h3>Get Started</h3>
                     <label>
@@ -97,9 +79,7 @@ class EventForm extends React.Component {
                             onChange={this.handleInputChange} />
                     </label>
                 </div>
-
                 <hr/>
-
                 <div id="maps">
                     <h3>Choose Location</h3>
 
@@ -170,6 +150,7 @@ class EventForm extends React.Component {
                     </button>
                 </div>
             </form>
+            </Paper>
         );
     }
 }
