@@ -75,7 +75,7 @@ class TableContainer extends Component {
                     {this.state.events.map(event => (
                         <TableRow id={event.Id}>
                             <TableCell>{event.Title}</TableCell>
-                            <TableCell>{JSON.stringify(event.Location)}</TableCell>
+                            <TableCell>{event.Location}</TableCell>
                             <TableCell>{event.Date}</TableCell>
                             <TableCell >
                                 <IconButton onClick={()=>{this.deleteEvent(event.Id)}}><DeleteIcon/></IconButton>

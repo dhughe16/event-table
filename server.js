@@ -149,12 +149,11 @@ app.get('/listEvents', function (req, res) {
 
                 eventList.push({
                     Title: event.Title,
-                    Location: event.Location,
+                    Location: event.Address,
                     Date: date.toLocaleDateString("en-US"),
                     Id: event[datastore.KEY].path[1]
                 });
             });
-            //let list = eventsToAddr(eventList);
             //console.log(list);
             res.send(eventList);
         })
@@ -184,56 +183,6 @@ app.post('/delete', function (req, res) {
             });
 });
 
-/**
-* eventsToAddr
-*  @param events, a JSON object of events
-*  @return JSON object with updated events
- *  Iterates through events list, re-formatting locations
- *  to addresses.
- */
-function eventsToAddr(events){
-
-    for (var event in events){
-        (async () => {
-            event.Location = await reverseGeo(event.Location);
-        })();
-    }
-
-    return events;
-}
-
-/**
-* reverseGeo
-*  @param req, A JSON object including the longitude and latitude of
- *      a location.
-*  @return a string containing the formatted address that corresponds with
- *  the longitude and latitude.
- *  Desc: Converts a longitude latitude pair to a formatted address
- *  using Google Maps Reverse Geocoding
- */
-async function reverseGeo(req) {
-    try {
-        let latlng = req.latitude.toString() + ',' + req.longitude.toString();
-        let key = 'AIzaSyC4xYqoJ2z76xP1hEu8B4AG9otpRL7mxec';
-        var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latlng + '&key=' + key;
-        var addr = '';
-        axios({
-            method: 'get',
-            url: url,
-            timeout: 5000
-        })
-            .then(res => {
-                //console.log(res.data.results[0].formatted_address);
-                addr = res.data.results[0].formatted_address;
-                return addr;
-            })
-            .catch(err => {
-                console.error('ERROR:', err);
-            });
-    } catch(error) {
-        console.log(error.message);
-    }
-}
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
