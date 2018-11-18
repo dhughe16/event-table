@@ -42,6 +42,7 @@ class TableContainer extends Component {
 
     // Deletes an event with the given key
     deleteEvent(id) {
+        console.log(id);
         axios.post('/delete', {id})
             .then(res => {
                 console.log(res.data);

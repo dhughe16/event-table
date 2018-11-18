@@ -158,7 +158,7 @@ app.get('/listEvents', function (req, res) {
             //console.log(list);
             res.send(eventList);
         })
-        .catch(err => {
+        .catch(err => {o
             console.error('ERROR:', err);
         });
 });
@@ -171,7 +171,8 @@ app.get('/listEvents', function (req, res) {
  *  Desc: Deletes an event from Google Datastore
  */
 app.post('/delete', function (req, res) {
-    const eventKey = datastore.key(['Event', req.body.key]);
+    console.log(req.body);
+    const eventKey = datastore.key(['Event', req.body.id]);
 
         datastore
             .delete(eventKey)
@@ -181,8 +182,6 @@ app.post('/delete', function (req, res) {
             .catch(err => {
                 console.error('ERROR:', err);
             });
-
-    res.send('Event deleted')
 });
 
 /**
