@@ -5,6 +5,7 @@ import DayPicker from 'react-day-picker';
 //import 'react-day-picker/lib/style.css';
 import { MapComponent } from './MapComponent';
 import Paper from '@material-ui/core/Paper';
+import axios from "axios";
 //import axios from 'axios';
 //const localstorage_key = 'savedJson';
 
@@ -17,22 +18,21 @@ class CreateEvent extends React.Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.eventSubmit = this.eventSubmit.bind(this);
         this.state = {
-            name: "Event Name",
-            desc: "Description of the event.",
+            Title: "Event Name",
+            Description: "Description of the event.",
             isGoing: true,
-            address: "699 S Mill Ave, Tempe, AZ 85281",
-            lat: 33.4255,
-            lon: -111.94,
-            selectedDay: null,
-            time: "12:00",
+            Address: "699 S Mill Ave, Tempe, AZ 85281",
+            Latitude: 33.4255,
+            Longitude: -111.94,
+            Date: null,
+            Time: "12:00",
             YouTubeURL: "https://www.youtube.com/watch?v=oHg5SJYRHA0",
-            userJson: {},
         };
     }
 
     handleDayClick(day, { selected }) {
         this.setState({
-            selectedDay: selected ? undefined : day,
+            Date: selected ? undefined : day,
         });
     }
 
@@ -50,8 +50,18 @@ class CreateEvent extends React.Component {
 
 
     eventSubmit() {
-        console.log(this.state);
-        console.log(JSON.stringify(this.state));
+        //console.log(this.state);
+
+        axios({
+            method: 'post',
+            url: '/addEvent',
+            data: this.state})
+            .then(()=> {
+                console.log('Adding event');
+            })
+            .catch(err => {
+                console.error('ERROR:', err);
+            });
     }
 
     render() {
@@ -62,12 +72,12 @@ class CreateEvent extends React.Component {
                     <h3>Get Started</h3>
                     <label>
                         Event name:
-                        <input type="text" value={this.state.name} onChange={this.handleInputChange} />
+                        <input type="text" value={this.state.Title} onChange={this.handleInputChange} />
                     </label>
                     <br />
                     <label>
                         Description:
-                        <textarea rows="5" value={this.state.desc} onChange={this.handleInputChange} />
+                        <textarea rows="5" value={this.state.Description} onChange={this.handleInputChange} />
                     </label>
                     <br />
                     <label>
@@ -90,7 +100,7 @@ class CreateEvent extends React.Component {
                             <input
                                 name="address"
                                 type="text"
-                                value={this.state.address}
+                                value={this.state.Address}
                                 onChange={this.handleInputChange} />
                         </label>
                         <br />
@@ -99,7 +109,7 @@ class CreateEvent extends React.Component {
                             <input
                                 name="lat"
                                 type="number"
-                                value={this.state.lat}
+                                value={this.state.Latitude}
                                 onChange={this.handleInputChange} />
                         </label>
                         <br />
@@ -108,7 +118,7 @@ class CreateEvent extends React.Component {
                             <input
                                 name="lon"
                                 type="number"
-                                value={this.state.lon}
+                                value={this.state.Longitude}
                                 onChange={this.handleInputChange} />
                         </label>
                     </Collapsible>
@@ -120,11 +130,11 @@ class CreateEvent extends React.Component {
                     <h3>Scheduling</h3>
                     <div>
                         <DayPicker
-                            selectedDays={this.state.selectedDay}
+                            selectedDays={this.state.Date}
                             onDayClick={this.handleDayClick} />
                         <p>
-                            {this.state.selectedDay
-                                ? this.state.selectedDay.toLocaleDateString()
+                            {this.state.Date
+                                ? this.state.Date.toLocaleDateString()
                                 : 'Please select a day '}
                         </p>
                     </div>
@@ -134,7 +144,7 @@ class CreateEvent extends React.Component {
                         <input
                             name="time"
                             type="time"
-                            value={this.state.time}
+                            value={this.state.Time}
                             onChange={this.handleInputChange} />
                     </label>
                 </div>
@@ -146,7 +156,7 @@ class CreateEvent extends React.Component {
                         type="button"
                         style={{ padding: 5, marginLeft: 10 }}
                         onClick={this.eventSubmit.bind(this)}>
-                        JSON Stringify
+                        Add
                     </button>
                 </div>
             </form>

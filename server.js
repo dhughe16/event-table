@@ -101,7 +101,7 @@ app.get('/listBucketItems', (req, res) => {
 
 app.get('/sendStore', (req, res) => {
     // The kind for the new entity
-    const kind = 'Event-Item';
+    const kind = 'Event';
     // The name/ID for the new entity
     const name = 'Product Demonstration';
     // The Cloud Datastore key for the new entity
@@ -127,6 +127,32 @@ app.get('/sendStore', (req, res) => {
             console.error('ERROR:', err);
         });
 })
+
+// Add an event to datastore
+
+app.post('/addEvent', (req, res) => {
+
+    console.log(req.body);
+
+    // The Cloud Datastore key for the new entity
+    const eventKey = datastore.key('Event');
+
+    // Prepares the new entity
+    const entity = {
+        key: eventKey,
+        data: req.body
+    };
+
+    // Saves the entity
+    datastore
+        .save(entity)
+        .then(() => {
+            console.log(`Saved ${entity.key.name}: ${entity.data.description}`);
+        })
+        .catch(err => {
+            console.error('ERROR:', err);
+        });
+});
 
 /**
 * listEvents
@@ -157,7 +183,7 @@ app.get('/listEvents', function (req, res) {
             //console.log(list);
             res.send(eventList);
         })
-        .catch(err => {o
+        .catch(err => {
             console.error('ERROR:', err);
         });
 });
